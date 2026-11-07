@@ -3,7 +3,7 @@
   "id": "bryanthaboi.drop-stack",
   "name": "Drop Stack",
   "author": "bryanthaboi",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "api": ">=1.0.0 <2.0.0",
   "app": ">=1.0.0 <2.0.0",
   "runtime": "ts/1",
@@ -11,7 +11,7 @@
   "license": "MIT",
   "permissions": [
     {"kind": "fs.read", "scope": "selection", "reason": "Hold on to the files you stash so they can be copied or moved later"},
-    {"kind": "fs.write", "scope": "destination", "reason": "Copy or move the stack into the folder you pick"},
+    {"kind": "fs.write", "scope": "destination", "reason": "Copy or move the stack into the folder you are in, or one you pick"},
     {"kind": "storage", "quotaBytes": 262144},
     {"kind": "ui", "surfaces": ["panel", "contextMenu", "toolbar"]}
   ],
@@ -29,8 +29,8 @@
     ],
     "commands": [
       {"id": "stash-selection", "title": "Add Selection to Drop Stack", "handler": "stashSelection", "category": "Drop Stack"},
-      {"id": "drop-copy", "title": "Copy Drop Stack to Folder", "handler": "dropCopy", "category": "Drop Stack"},
-      {"id": "drop-move", "title": "Move Drop Stack to Folder", "handler": "dropMove", "category": "Drop Stack"},
+      {"id": "drop-copy", "title": "Copy Drop Stack Here", "handler": "dropCopy", "category": "Drop Stack"},
+      {"id": "drop-move", "title": "Move Drop Stack Here", "handler": "dropMove", "category": "Drop Stack"},
       {"id": "clear-stack", "title": "Clear Drop Stack", "handler": "clearStack", "category": "Drop Stack"}
     ]
   },

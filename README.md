@@ -9,11 +9,11 @@ path finder style drop stack. stash files from anywhere, browse around, then cop
 ## grants
 
 - `fs.read`: selection, to hold the files u stash
-- `fs.write`: destination, the folder u pick when dropping
+- `fs.write`: destination, the folder u are in when dropping (or one u pick if ur somewhere that isnt a folder)
 - `storage`: remembers the stack
 - `ui`: panel, context menu, toolbar
 
-right click, add to drop stack. open the panel, hit copy or move, pick the folder. name clashes get renamed, nothing is overwritten. if the app invalidated the handles (restart) it tells u to restash instead of guessing.
+right click, add to drop stack. browse to the target folder, open the panel, hit copy here or move here. outside a real folder it asks u to pick one. name clashes get renamed, nothing is overwritten. if the app invalidated the handles (restart) it tells u to restash instead of guessing.
 
 ## install
 

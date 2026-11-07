@@ -1,4 +1,4 @@
-import { operations, storage, ui } from "betterfinder";
+import { locations, operations, storage, ui } from "betterfinder";
 import type { ActivateHandler, CommandResult, CommandRunHandler, FileRef, UINode } from "betterfinder";
 
 const KEY = "stack";
@@ -28,8 +28,8 @@ async function render(items: FileRef[]): Promise<void> {
     body.push({
       type: "hstack",
       children: [
-        { type: "button", text: "Copy", label: "Copy the stack to a folder", command: "drop-copy" },
-        { type: "button", text: "Move", label: "Move the stack to a folder", command: "drop-move" },
+        { type: "button", text: "Copy here", label: "Copy the stack into the folder u are in", command: "drop-copy" },
+        { type: "button", text: "Move here", label: "Move the stack into the folder u are in", command: "drop-move" },
         { type: "button", text: "Clear", label: "Clear the stack", command: "clear-stack" },
       ],
     });
@@ -44,7 +44,8 @@ async function drop(move: boolean): Promise<CommandResult> {
   if (items.length === 0) {
     return { message: "the stack is empty, stash something first" };
   }
-  const destination = await ui.pickDestination(move ? "Move the stack into..." : "Copy the stack into...");
+  const here = await locations.current();
+  const destination = here.folder ?? (await ui.pickDestination(move ? "Move the stack into..." : "Copy the stack into..."));
   if (destination === null) {
     return {};
   }
@@ -54,7 +55,7 @@ async function drop(move: boolean): Promise<CommandResult> {
       : await operations.copy(items, destination, "rename");
     await save([]);
     await render([]);
-    return { operationId: ticket.operationId, message: (move ? "moving " : "copying ") + items.length + " items" };
+    return { operationId: ticket.operationId, message: (move ? "moving " : "copying ") + items.length + " items to " + (here.folder ? here.title : destination.name) };
   } catch (error) {
     return { message: "couldnt drop the stack, restash the files and try again" };
   }
