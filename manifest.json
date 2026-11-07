@@ -1,0 +1,47 @@
+{
+  "manifestVersion": 1,
+  "id": "bryanthaboi.drop-stack",
+  "name": "Drop Stack",
+  "author": "bryanthaboi",
+  "version": "1.0.0",
+  "api": ">=1.0.0 <2.0.0",
+  "app": ">=1.0.0 <2.0.0",
+  "runtime": "ts/1",
+  "entry": "scripts/main.ts",
+  "license": "MIT",
+  "permissions": [
+    {"kind": "fs.read", "scope": "selection", "reason": "Hold on to the files you stash so they can be copied or moved later"},
+    {"kind": "fs.write", "scope": "destination", "reason": "Copy or move the stack into the folder you pick"},
+    {"kind": "storage", "quotaBytes": 262144},
+    {"kind": "ui", "surfaces": ["panel", "contextMenu", "toolbar"]}
+  ],
+  "contributes": {
+    "panels": [
+      {"id": "stack", "title": "Drop Stack", "edge": "right", "presentation": "slideOut", "icon": "tray.full"}
+    ],
+    "toolbar": [
+      {"id": "stash", "title": "Stash", "command": "stash-selection", "icon": "tray.and.arrow.down"}
+    ],
+    "contextMenu": [
+      {"id": "stash-items", "title": "Add to Drop Stack", "command": "stash-selection", "target": "items"},
+      {"id": "copy-stack", "title": "Copy Drop Stack Here...", "command": "drop-copy", "target": "background"},
+      {"id": "move-stack", "title": "Move Drop Stack Here...", "command": "drop-move", "target": "background"}
+    ],
+    "commands": [
+      {"id": "stash-selection", "title": "Add Selection to Drop Stack", "handler": "stashSelection", "category": "Drop Stack"},
+      {"id": "drop-copy", "title": "Copy Drop Stack to Folder", "handler": "dropCopy", "category": "Drop Stack"},
+      {"id": "drop-move", "title": "Move Drop Stack to Folder", "handler": "dropMove", "category": "Drop Stack"},
+      {"id": "clear-stack", "title": "Clear Drop Stack", "handler": "clearStack", "category": "Drop Stack"}
+    ]
+  },
+  "hooks": [
+    {"name": "activate", "handler": "activate", "version": 1},
+    {"name": "command.run", "handler": "stashSelection", "version": 1},
+    {"name": "command.run", "handler": "dropCopy", "version": 1},
+    {"name": "command.run", "handler": "dropMove", "version": 1},
+    {"name": "command.run", "handler": "clearStack", "version": 1}
+  ],
+  "settings": [],
+  "dependencies": [],
+  "conflicts": []
+}
